@@ -3,10 +3,10 @@ from selenium import webdriver
 from parsers.page_parser import PageParser
 import time
 
-FILENAME = 'D:\Python_Projects\Analyzing_data_with_pandas\\naukri_scrapped_data3.csv'
+FILENAME = 'D:\Python_Projects\Analyzing_data_with_pandas\\naukri_scrapped_data.csv'
 NAUKRI_IT_JOBS_URL = "https://www.naukri.com/python-jobs?k=python"
 WAIT_TIME = 5  # Time provided to load each web page
-PAGE_COUNT_TO_SCRAP = 5  # Number of pages to scrap
+PAGE_COUNT_TO_SCRAP = 1  # Number of pages to scrap
 FILE_HEADER = "job_id,job_title,company,experience,salary,location,job_age,skills"
 
 
@@ -33,9 +33,7 @@ def main_func(url, wait_time, counter):
     data_container = [FILE_HEADER]
     while count < counter:
         chrome.get(url)
-        # PageParser.force_wait(wait_time)
         force_wait(wait_time)
-        # naukri_jobs = PageParser(chrome).job
         page = PageParser(chrome)
         naukri_jobs = page.job
 
@@ -49,7 +47,6 @@ def main_func(url, wait_time, counter):
         if PageParser(chrome).next_page is None:
             break
 
-        # url = PageParser(chrome).next_page
         url = page.next_page()
 
         count += 1
